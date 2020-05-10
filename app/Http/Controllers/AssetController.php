@@ -137,6 +137,17 @@ class AssetController extends Controller
         return response($data);
     }
 
+    public function deassignment(){
+        $asset_id = $_GET['asset_id'];
+        $selectedwh = $_GET['selectedwh'];
+
+        DB::table('assets')
+              ->where('id', $asset_id)
+              ->update(['employee_id' => NULL, 'division_id' => NULL, 'warehouse_id' => $selectedwh, 'is_assigned' => 'No', 'status' => 'Active', "assigned_date"=> NULL]);
+
+        return response("De-assignment Successfull!!");
+    }
+
     public function test(){
         // $data = Employee::all();
         // $query = $request->get('query');

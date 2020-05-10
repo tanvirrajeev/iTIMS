@@ -199,7 +199,14 @@
                 <div class="col-md-3"><label for="assigndetails_date">Assignment Date:</label></div>
                 <div class="col-md-6"><input type="text" class="form-control" id="assigndetails_date" name="assigndetails_date" disabled></div>
             </div>
-
+            <div class="row">
+                <div class="col-md-6"><input type="hidden" class="form-control" id="assignastid" name="assignastid"  disabled></div>
+                {{-- <div class="col-md-6"><input type="hidden" class="form-control" id="assetempid" name="assetempid" disabled></div> --}}
+                {{-- <div class="col-md-6"><input type="hidden" class="form-control" id="assetdivid" name="assetdivid" disabled></div> --}}
+            </div>
+            {{-- <form id="deassignsubmit"> --}}
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-dismiss="modal" data-target="#deassignmodalopen">De-Assign</button>
+            {{-- </form> --}}
           </div>
         </div>
         <div class="modal-footer">
@@ -210,6 +217,42 @@
     </div>
   </div>
   <!-- !! Modal Assignment Details-->  
+
+  <!-- Modal De-Assignment-->
+  <div class="modal fade" id="deassignmodalopen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title" id="exampleModalLabel">De-Assign</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid" id="deassigncontainer">
+            <p class="font-weight-bold text-monospace badge badge-warning text-wrap">**CAUTION: This action will de-assign the Asset from the User and will bring back to warehouse.</p>
+            <div class="row">
+                <div class="col-md-5"><label for="selectwh">Select Warehouse:</label></div>
+                <div class="col-md-6">
+                    <select class="form-control form-control-sm" name="selectwh" id="selectwh" required>
+
+                    </select>
+                </div>
+            </div>
+            <br>
+            <form id="deassignform">
+                <button class="btn btn-primary float-right" id="deassignform_submit" type="submit">De-Assign</button>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- !! Modal De-Assignment-->    
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -329,6 +372,7 @@
     $('#assigndetails').on('show.bs.modal', function (event) {
         var id = $(event.relatedTarget).data('id');
         // $(this).find(".modal-body").text(id);
+
         console.log(id);
         $.ajax({  
           url: "{{ url('/asset/assignmentdetails/') }}",
@@ -339,6 +383,8 @@
           success:function(data){
             console.log(data);
             var assign = $('#assigndetails');
+            //To set the id for De-Assigment 
+            assign.find('#assignastid').val(id);            
             for (i in data) {
                 // console.log(data[i].name)
                 assign.find('#assigndetails_name').val(data[i].emp_name);
@@ -347,13 +393,60 @@
                 assign.find('#assigndetails_mail').val(data[i].emp_email);
                 assign.find('#assigndetails_div').val(data[i].div_name);
                 assign.find('#assigndetails_date').val(data[i].assigned_date);
-                
-                
             }
           }
          });
-        
-
     });
 </script>
 {{-- !! view Assignment Details --}}
+
+{{-- Populate Warehouse for De-assignment  --}}
+<script>
+$('#selectwh').ready(function(){
+    $.ajax({
+        url: "{{ url('/getwarehouse') }}",
+        method:"get",
+        success:function(war){
+            $("#selectwh").empty();
+            // $("#selectwh").append('<option>Select Warehouse</option>');
+            for(i in war){
+                $("#selectwh").append('<option value="'+war[i].id+'">'+war[i].name+'</option>');
+            }
+        }
+    });
+
+    $('#deassignmodalopen').on('show.bs.modal',function(event){
+        //getting the asset id from #assigndetails
+        var assign = $('#assigndetails');
+        var asset_id = assign.find('#assignastid').val();  
+        
+        // $(this).find(".modal-body").text(asset_id);
+        console.log(asset_id);
+
+        $('#selectwh').on('change', function(event){
+            // var val = $('#selectwh').find('#option value').val();
+            // var val = $('#selectwh :selected').text();
+            var selectedwh = $('#selectwh :selected').val();
+            console.log(selectedwh);
+
+            $('#deassignform').on('submit',function(event){
+                // event.preventDefault();
+                $.ajax({  
+                    url: "{{ url('/asset/deassignment') }}",
+                    method:"get",
+                    data:{
+                        asset_id:asset_id,
+                        selectedwh:selectedwh,
+                    },
+                    success:function(data){
+                        console.log(data);
+                        }
+                    });            
+                });
+
+        });
+
+    });
+});
+</script>
+{{-- !! Populate Warehouse for De-assignment  --}}

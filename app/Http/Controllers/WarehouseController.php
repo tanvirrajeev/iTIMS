@@ -25,6 +25,12 @@ class WarehouseController extends Controller
         // return Datatables::of(Warehouse::query())->make(true);
     }
 
+    public function getwarehouse(){
+        $war = DB::table('warehouses')->get();
+        return response($war);
+        // return response("success");
+    }
+
     public function create()
     {
         $br = Branch::all();

@@ -39,8 +39,10 @@ Route::resource('astmodel', 'AstmodelController');
 Route::get('astmodellist', 'AstmodelController@astmodellist')->name('astmodellist');
 Route::resource('supplier', 'SupplierController');
 Route::get('supplierlist', 'SupplierController@supplierlist')->name('supplierlist');
-Route::resource('warehouse', 'WarehouseController');
+Route::get('getwarehouse', 'WarehouseController@getwarehouse')->name('getwarehouse');
 Route::get('warehouselist', 'WarehouseController@warehouselist')->name('warehouselist');
+Route::resource('warehouse', 'WarehouseController');
+
 
 Route::get('asset/purchase', 'PurchaseController@index');
 Route::get('asset/purchase/create', 'PurchaseController@create');
@@ -49,6 +51,7 @@ Route::get('/asset/details', 'AssetController@details')->name('assetdetails');
 Route::get('/asset/assign', 'AssetController@assign')->name('assetassign');
 Route::get('/asset/employeeassignment', 'AssetController@employeeassignment')->name('employeeassignment');
 Route::get('/asset/assignmentdetails', 'AssetController@assignmentdetails')->name('assignmentdetails');
+Route::get('/asset/deassignment', 'AssetController@deassignment')->name('deassignment');
 Route::get('/asset/test', 'AssetController@test')->name('assettest');
 Route::get('assetlist', 'AssetController@assetlist')->name('assetlist');
 Route::resource('asset', 'AssetController');

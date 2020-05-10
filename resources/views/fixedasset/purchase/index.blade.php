@@ -1,0 +1,1 @@
+Thhis is Fixed Asset Purchase Index()

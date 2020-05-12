@@ -33,6 +33,7 @@
                         <th>Designaiton</th>
                         <th>Emloyee ID</th>
                         <th>Division</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
             </table>
@@ -54,7 +55,8 @@
                         { data: 'designation', name: 'designation' },
                         { data: 'employee_id', name: 'employee_id' },
                         // { data: 'division_id', name: 'division_id' }
-                        { data: 'divname', name: 'divisions.name'}
+                        { data: 'divname', name: 'divisions.name'},
+                        { data: 'action', name: 'action'}
                     ]
                 });
             });

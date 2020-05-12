@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge"> 
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
   <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">  
@@ -134,6 +135,12 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="">
+                <a href="/company" class="nav-link">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Company</p>
+                </a>
+              </li>
+              <li class="">
                 <a href="/employee" class="nav-link">
                   <i class="fas fa-users nav-icon"></i>
                   <p>Employee</p>
@@ -148,7 +155,13 @@
               <li class="">
                 <a href="/branch" class="nav-link">
                   <i class="fas fa-laptop-house nav-icon"></i>
-                  <p>Branch</p>
+                  <p>Business Unit</p>
+                </a>
+              </li>
+              <li class="">
+                <a href="/location" class="nav-link">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Location</p>
                 </a>
               </li>
               <li class="">

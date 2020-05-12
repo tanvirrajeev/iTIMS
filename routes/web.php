@@ -4,16 +4,6 @@ use Illuminate\Support\Facades\Route;
 // use RealRashid\SweetAlert\Facades\Alert;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // Route::get('/', function () {
 //     Alert::success('Success Title', 'Success Message');
@@ -25,10 +15,14 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('employee', 'EmployeeController');
 Route::get('employeelist', 'EmployeeController@employeelist')->name('employeelist'); 
+Route::resource('employee', 'EmployeeController');
 Route::resource('division', 'DivisionController');
 Route::get('divisionlist', 'DivisionController@divisionlist')->name('divisionlist'); 
+Route::get('companylist', 'CompanyController@companylist')->name('companylist');
+Route::resource('company', 'CompanyController');
+Route::get('locationlist', 'LocationController@locationlist')->name('locationlist');
+Route::resource('location', 'LocationController');
 Route::resource('branch', 'BranchController');
 Route::get('branchlist', 'BranchController@branchlist')->name('branchlist'); 
 Route::resource('category', 'CategoryController');

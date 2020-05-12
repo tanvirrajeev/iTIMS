@@ -73,7 +73,7 @@
 
                     <div class="form-row">
                         <div class="col-md-3 mb-3">
-                          <label for="branch">Branch</label>
+                          <label for="branch">Business Uit</label>
                           <select class="form-control form-control-sm" name="branch" id="branch" required>
                             @foreach ($br as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>

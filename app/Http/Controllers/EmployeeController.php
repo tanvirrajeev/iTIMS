@@ -29,11 +29,18 @@ class EmployeeController extends Controller
 
         $data = DB::table('employees')
             ->join('divisions', 'divisions.id', '=', 'employees.division_id')
-            ->select('employees.name','employees.designation','employees.employee_id','divisions.name as divname')
+            ->select('employees.id as id','employees.name','employees.designation','employees.employee_id','divisions.name as divname')
             ->get();
 
         // dump($data);    
-        return Datatables::of($data)->make(true);
+        return Datatables::of($data)
+        ->addColumn('action', function( $data) {
+            return  '<a href="employee/'.$data->id.'/edit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i><i class="fas fa-edit"></i></a>
+            <a href="employee/'.$data->id.'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-zoom-in"></i><i class="fas fa-trash-alt"></i></a>';
+        })
+        ->rawColumns(['action'])
+        // ->toJson();
+        ->make(true);
         // return Datatables::of(Employee::query())->make(true);
     }
 
@@ -66,7 +73,7 @@ class EmployeeController extends Controller
     }
 
     public function edit(Employee $employee){
-        //
+        return view('settings.employee.edit');
     }
 
     public function update(Request $request, Employee $employee){

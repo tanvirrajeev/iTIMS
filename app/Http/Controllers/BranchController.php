@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Branch;
+use App\Company;
 use App\Location;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
@@ -17,8 +18,9 @@ class BranchController extends Controller
 
     public function branchlist(){
         $data = DB::table('branches')
+        ->join('companies', 'companies.id', '=', 'branches.company_id')
         ->join('locations', 'locations.id', '=', 'branches.location_id')
-        ->select('branches.id as id','branches.name as name','branches.address as address','locations.name as loc_name')
+        ->select('branches.id as id','branches.name as name','branches.address as address','locations.name as loc_name','companies.name as com_name')
         ->get();
         
         return Datatables::of($data) //Branch::query()
@@ -32,8 +34,9 @@ class BranchController extends Controller
     }
 
     public function create(){
+        $com = Company::all();
         $loc = Location::all();
-        return view('settings.branch.create',compact('loc'));
+        return view('settings.branch.create',compact('loc','com'));
     }
 
     public function store(Request $request){
@@ -41,10 +44,11 @@ class BranchController extends Controller
         $br = new Branch;
         $br->name = $request->branch;
         $br->address = $request->address;
+        $br->company_id = $request->company_id;
         $br->location_id = $request->location_id;
         $br->save();
 
-        return redirect(route('branch.index'))->with('toast_success','Branch Created');
+        return redirect(route('branch.index'))->with('toast_success','Business Unit Created');
         
     }
 
@@ -54,16 +58,32 @@ class BranchController extends Controller
 
     public function edit($id){
         $br = Branch::find($id);
+        
+        $com = Company::all();
+        $com_id = $br->company_id;
+        $com_row_data = Company::find($com_id);
+        $com_name = $com_row_data->name;
+
         $loc = Location::all();
-        $loc_name = $br->name;
-        //dd($loc);
-        return view('settings.branch.edit',compact('br','loc_name','loc'));
+        // $loc_name = $br->name;
+        $loc_id = $br->location_id;
+        $loc_row_data = Location::find($loc_id);
+        $loc_name = $loc_row_data->name;
+        // dd($loc_name);
+        return view('settings.branch.edit',compact('br','loc_id','loc_name','loc','com','com_id','com_name'));
         // return view('settings.branch.edit');
     }
 
-    public function update(Request $request, Branch $branch)
+    public function update(Request $request, $id)
     {
-        //
+        $br = Branch::find($id);
+        $br->name = $request->get('branch');
+        $br->address = $request->get('address');
+        $br->company_id = $request->get('company_id');
+        $br->location_id = $request->get('location_id');
+        $br->save();
+
+        return redirect(route('branch.index'))->with('toast_success','Business Unit Updated');
     }
 
     public function destroy($id)

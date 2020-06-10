@@ -25,8 +25,9 @@
             <!-- /.card-header -->
             <div class="card-body">
 
-                <form action="{{ route('branch.store') }}" method="POST">
+                <form action="/branch/{{$br->id}}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="form-row">
                       <div class="col-md-6 mb-3">
                         <label for="branch">Business Unit Name</label>
@@ -43,12 +44,38 @@
 
                       <div class="form-row">
                         <div class="col-md-6 mb-3">
+                          <label for="location_id">Company</label>
+                          <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" name="company_id" id="company_id" style="width: 100%;">
+                            {{-- <option selected="selected" disabled>{{$loc_name}}</option> --}}
+                            <option value="{{$com_id}}" selected>{{$com_name}}</option>
+                            @if ($com->count() > 1)
+                              @foreach ($com as $item)
+                                <option
+                                @if ($item->id == $com_id)
+                                    disabled
+                                @endif 
+                                  value="{{$item->id}}">{{$item->name}}</option>
+                              @endforeach    
+                            @endif
+                            
+                          </select>
+                        </div>
+                      </div> 
+
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
                           <label for="location_id">Location</label>
                           <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" name="location_id" id="location_id" style="width: 100%;">
-                            <option selected="selected" disabled>{{$loc_name}}</option>
-                            @foreach ($loc as $item)
-                              <option>{{$item->name}}</option>
-                            @endforeach
+                            <option value="{{$loc_id}}" selected>{{$loc_name}}</option>
+                              @if ($loc->count() > 1)
+                                @foreach ($loc as $item)
+                                <option
+                                  @if ($item->id == $loc_id)
+                                    disabled
+                                  @endif
+                                  value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                              @endif
                           </select>
                         </div>
                       </div>                      

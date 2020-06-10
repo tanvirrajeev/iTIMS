@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Location;
+use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -13,11 +16,18 @@ class CompanyController extends Controller
     }
 
     public function companylist(){
-        return Datatables::of(Company::query())->make(true);
+        $data = DB::table('companies')
+        ->join('locations', 'locations.id', '=', 'companies.location_id')
+        ->select('companies.name','companies.address','locations.name as loc_name')
+        ->get();
+
+        return Datatables::of($data) //Company::query()
+        ->make(true);
     }
 
     public function create(){
-        return view('settings.company.create');
+        $loc = Location::all();
+        return view('settings.company.create',compact('loc'));
     }
 
 

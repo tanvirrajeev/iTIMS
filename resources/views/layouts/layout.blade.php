@@ -100,6 +100,12 @@
                   <p>Purchase</p>
                 </a>
               </li>
+              <li class="">
+                <a href="/asset/warehouse" class="nav-link">
+                  <i class="fas fa-solar-panel nav-icon"></i>
+                  <p>W/H Availability</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview menu-close">
@@ -235,7 +241,6 @@
       <a href="mailto:ba@banglacat.com">Bangla CAT Business Applications Team</a>
     </div>
     <!-- Default to the left -->
-    {{-- <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved. --}}
     <strong> Acorn Infrastructure Services Ltd.</strong>  
   </footer>
 </div>

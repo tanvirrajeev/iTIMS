@@ -24,13 +24,14 @@
               <a href="/branch/create" class="btn btn-outline-warning btn-sm float-right">Create Business Unit</a>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
+            <div class="card-body ">
 
                 <table class="table table-bordered" id="branch-table">
                     <thead>
                         <tr>
                             <th>Business Unit</th>
                             <th>Address</th>
+                            <th>Company</th>
                             <th>Location</th>
                             <th>Action</th>
                         </tr>
@@ -52,6 +53,7 @@
                     columns: [
                         { data: 'name', name: 'name' },
                         { data: 'address', name: 'address' },
+                        { data: 'com_name', name: 'com_name' },
                         { data: 'loc_name', name: 'loc_name' },
                         { data: 'action', name: 'action' }
                     ]

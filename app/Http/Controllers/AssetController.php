@@ -127,6 +127,7 @@ class AssetController extends Controller
             'assets.employee_id',
             'assets.assigned_date',
             'employees.name as emp_name',
+            'employees.employee_id as emp_id',
             'employees.designation as emp_desig',
             'employees.email as emp_email',
             'employees.division_id as emp_div',

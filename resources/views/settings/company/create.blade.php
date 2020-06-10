@@ -44,7 +44,14 @@
                       <div class="form-row">
                         <div class="col-md-6 mb-3">
                           <label for="location">Location</label>
-                          <input type="text" class="form-control " id="location_id" name="location_id" required>
+                          {{-- <input type="text" class="form-control " id="location_id" name="location_id" required> --}}
+                          <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" name="location_id" id="location_id" style="width: 100%;">
+                            {{-- <option selected="selected" disabled>{{$loc_name}}</option> --}}
+                            @foreach ($loc as $item)
+                              <option value="{{$item->id}}">{{$item->name}}</option>
+                              {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
+                            @endforeach
+                          </select>
                         </div>
                       </div>         
                       

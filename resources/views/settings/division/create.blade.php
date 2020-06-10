@@ -47,6 +47,17 @@
                           </div>
                       </div>
 
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                          <label for="division">Company</label>
+                          <select class="form-control form-control-sm" name="company_id" id="company_id" required>
+                            @foreach ($com as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                          </select>
+                        </div>  
+                      </div>
+
                     <button class="btn btn-primary" type="submit">Submit</button>
                   </form>
 

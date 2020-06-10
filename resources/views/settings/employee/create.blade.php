@@ -54,6 +54,14 @@
                         <input type="text" class="form-control " id="email" name="email">
                       </div>
                       <div class="col-md-3 mb-3">
+                        <label for="division">Company</label>
+                        <select class="form-control form-control-sm" name="company_id" id="company_id" required>
+                          @foreach ($com as $item)
+                              <option value="{{ $item->id }}">{{ $item->name }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="col-md-3 mb-3">
                         <label for="division">Division</label>
                         <select class="form-control form-control-sm" name="division" id="division" required>
                           @foreach ($div as $item)

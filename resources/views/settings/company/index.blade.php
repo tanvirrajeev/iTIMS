@@ -47,11 +47,11 @@
                 $('#company-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax: '{!! route('locationlist') !!}',
+                    ajax: '{!! route('companylist') !!}',
                     columns: [
                         { data: 'name', name: 'name' },
                         { data: 'address', name: 'address' },
-                        { data: 'location', name: 'location' }
+                        { data: 'loc_name', name: 'loc_name' }
                     ]
                 });
             });

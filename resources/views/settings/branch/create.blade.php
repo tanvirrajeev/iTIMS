@@ -43,6 +43,19 @@
 
                       <div class="form-row">
                         <div class="col-md-6 mb-3">
+                          <label for="location_id">Company</label>
+                          <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" name="company_id" id="company_id" style="width: 100%;">
+                            {{-- <option selected="selected" disabled>{{$loc_name}}</option> --}}
+                            @foreach ($com as $item)
+                              <option value="{{$item->id}}">{{$item->name}}</option>
+                              {{-- <option value="{{ $item->id }}">{{ $item->name }}</option> --}}
+                            @endforeach
+                          </select>
+                        </div>
+                      </div> 
+
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
                           <label for="location_id">Location</label>
                           <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" name="location_id" id="location_id" style="width: 100%;">
                             {{-- <option selected="selected" disabled>{{$loc_name}}</option> --}}

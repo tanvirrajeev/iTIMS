@@ -15,6 +15,7 @@ Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 
+// Settings 
 Route::get('employeelist', 'EmployeeController@employeelist')->name('employeelist'); 
 Route::resource('employee', 'EmployeeController');
 Route::resource('division', 'DivisionController');
@@ -37,7 +38,7 @@ Route::get('getwarehouse', 'WarehouseController@getwarehouse')->name('getwarehou
 Route::get('warehouselist', 'WarehouseController@warehouselist')->name('warehouselist');
 Route::resource('warehouse', 'WarehouseController');
 
-
+// Fixed Asset 
 Route::get('asset/purchase', 'PurchaseController@index');
 Route::get('asset/purchase/create', 'PurchaseController@create');
 Route::post('asset/purchase/create', 'PurchaseController@store')->name('assetpurchase');
